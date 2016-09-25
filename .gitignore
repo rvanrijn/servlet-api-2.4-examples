@@ -68,3 +68,7 @@ fabric.properties
 # *.ipr
 0Trackers
 
+.idea/
+servlet-hello.iml
+src/main/resources/
+target/
