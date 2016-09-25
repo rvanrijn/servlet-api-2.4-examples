@@ -6,24 +6,28 @@ import javax.servlet.http.*;
 
 public class HelloServlet extends HttpServlet {
 
-    private int count;
+    private int counter = 0;
 
     @Override
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
         getServletContext().log("init() called");
-        count = 0;
+
     }
 
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
 
-
         // Set the response message's MIME type
         response.setContentType("text/html;charset=UTF-8");
         // Allocate a output writer to write the response message into the network socket
         PrintWriter out = response.getWriter();
+
+
+        synchronized (this) {
+            counter++;
+        }
 
         // Write the response message, in an HTML page
         try {
@@ -43,8 +47,7 @@ public class HelloServlet extends HttpServlet {
             out.println("</body>");
             out.println("</html>");
         } finally {
-            count++;
-            response.getWriter().write("Incrementing the count: count = " + count);
+            response.getWriter().write("Incrementing the count: count = " + counter);
             out.close();  // Always close the output writer
         }
     }
