@@ -6,34 +6,43 @@
 	      http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
          version="2.4">
 
-  <display-name>Servlet 2.4 Web Application</display-name>
+    <display-name>Servlet 2.4 Web Application</display-name>
 
-  <!-- To save as <CATALINA_HOME>\webapps\helloservlet\WEB-INF\web.xml -->
-
-  <servlet>
-    <servlet-name>HelloWorldServlet</servlet-name>
-    <servlet-class>org.example.webapp.HelloServlet</servlet-class>
-  </servlet>
-
-  <servlet>
-    <servlet-name>EchoServletExample</servlet-name>
-    <servlet-class>org.example.webapp.EchoServlet</servlet-class>
-  </servlet>
+    <filter>
+        <filter-name>Page Request Timer</filter-name>
+        <filter-class>org.example.filter.TimeTrackFilter</filter-class>
+    </filter>
 
 
-  <!-- Note: All <servlet> elements MUST be grouped together and
-        placed IN FRONT of the <servlet-mapping> elements -->
+    <servlet>
+        <servlet-name>HelloWorldServlet</servlet-name>
+        <servlet-class>org.example.webapp.HelloServlet</servlet-class>
+    </servlet>
 
-  <servlet-mapping>
-    <servlet-name>HelloWorldServlet</servlet-name>
-    <url-pattern>/sayhello</url-pattern>
-  </servlet-mapping>
+    <servlet>
+        <servlet-name>EchoServletExample</servlet-name>
+        <servlet-class>org.example.webapp.EchoServlet</servlet-class>
+    </servlet>
 
-  <servlet-mapping>
-    <servlet-name>EchoServletExample</servlet-name>
-    <url-pattern>/echo</url-pattern>
-  </servlet-mapping>
 
+    <!-- Note: All <servlet> elements MUST be grouped together and
+          placed IN FRONT of the <servlet-mapping> elements -->
+
+    <servlet-mapping>
+        <servlet-name>HelloWorldServlet</servlet-name>
+        <url-pattern>/sayhello</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>EchoServletExample</servlet-name>
+        <url-pattern>/echo</url-pattern>
+    </servlet-mapping>
+
+    <!-- Add TimeTrackFilter to HelloWorldServlet -->
+    <filter-mapping>
+        <filter-name>Page Request Timer</filter-name>
+        <servlet-name>HelloWorldServlet</servlet-name>
+    </filter-mapping>
 
 
 </web-app>
