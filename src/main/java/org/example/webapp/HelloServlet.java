@@ -5,9 +5,21 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 
 public class HelloServlet extends HttpServlet {
+
+    private int count;
+
+    @Override
+    public void init(ServletConfig config) throws ServletException {
+        super.init(config);
+        getServletContext().log("init() called");
+        count = 0;
+    }
+
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
+
+
         // Set the response message's MIME type
         response.setContentType("text/html;charset=UTF-8");
         // Allocate a output writer to write the response message into the network socket
@@ -31,7 +43,15 @@ public class HelloServlet extends HttpServlet {
             out.println("</body>");
             out.println("</html>");
         } finally {
+            count++;
+            response.getWriter().write("Incrementing the count: count = " + count);
             out.close();  // Always close the output writer
         }
     }
+
+    @Override
+    public void destroy() {
+        getServletContext().log("destroy() called");
+    }
+
 }
